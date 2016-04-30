@@ -107,7 +107,9 @@ WARNING
         install_binaries
         install_node
         install_bower
-        build_bower
+        Dir.chdir('vendor/assets') do
+          build_bower
+        end
         run_assets_precompile_rake_task
       end
       best_practice_warnings
@@ -693,7 +695,7 @@ ERROR
 
       load_bower_cache
 
-      pipe("./node_modules/bower/bin/bower install --config.storage.packages=vendor/bower/packages --config.storage.registry=vendor/bower/registry --config.tmp=vendor/bower/tmp 2>&1")
+      pipe("./node_modules/bower/bin/bower install 2>&1")
       if $?.success?
         log "bower", :status => "success"
         puts "Cleaning up the bower tmp."
